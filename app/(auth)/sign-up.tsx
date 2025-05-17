@@ -1,9 +1,12 @@
+import { COLORS } from '@/constants/theme'
+import { styles } from '@/styles/auth.styles'
 import { useSignUp } from '@clerk/clerk-expo'
+import { Ionicons } from '@expo/vector-icons'
 import { Link, useRouter } from 'expo-router'
 import * as React from 'react'
-import { Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Button, Text, TextInput, TouchableOpacity, View } from 'react-native'
 
-export default function SignUpScreen() {
+export default function Page() {
   const { isLoaded, signUp, setActive } = useSignUp()
   const router = useRouter()
 
@@ -65,46 +68,71 @@ export default function SignUpScreen() {
 
   if (pendingVerification) {
     return (
-      <>
-        <Text>Verify your email</Text>
-        <TextInput
-          value={code}
-          placeholder="Enter your verification code"
-          onChangeText={(code) => setCode(code)}
-        />
-        <TouchableOpacity onPress={onVerifyPress}>
-          <Text>Verify</Text>
-        </TouchableOpacity>
-      </>
+      <View style={styles.container}>
+        {/* Brand secttion */}
+        <View style={styles.brandSection}>
+          <View style={styles.logoContainer}>
+              <Ionicons name="leaf" size={32} color={COLORS.primary} />
+          </View>
+          <Text style={styles.appName}>Verify your email</Text>
+        </View>
+
+        {/* Input field */}
+        <View style={styles.emailLoginSection}>
+          <TextInput
+            value={code}
+            placeholder="Enter your verification code"
+            placeholderTextColor="#666666"
+            onChangeText={(code) => setCode(code)}
+            style={styles.textBox}
+            keyboardType="numeric"
+          />
+          <Button title="Verify" onPress={onVerifyPress} />
+        </View>
+      </View>
     )
   }
 
   return (
-    <View>
-      <>
-        <Text>Sign up</Text>
+    <View style={styles.container}>
+      {/* Brand secttion */}
+      <View style={styles.brandSection}>
+        <View style={styles.logoContainer}>
+            <Ionicons name="leaf" size={32} color={COLORS.primary} />
+        </View>
+        <Text style={styles.appName}>Create Account</Text>
+      </View>
+
+      {/* Log in text fields */}
+      <View style={styles.emailLoginSection}>
         <TextInput
           autoCapitalize="none"
           value={emailAddress}
-          placeholder="Enter email"
-          onChangeText={(email) => setEmailAddress(email)}
+          placeholder="Enter your email"
+          placeholderTextColor={COLORS.grey}
+          onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
+          style={styles.textBox}
+          keyboardType="email-address"
         />
         <TextInput
           value={password}
-          placeholder="Enter password"
+          placeholder="Create a password"
+          placeholderTextColor={COLORS.grey}
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
+          style={styles.textBox}
         />
-        <TouchableOpacity onPress={onSignUpPress}>
-          <Text>Continue</Text>
+        <TouchableOpacity onPress={onSignUpPress} style={styles.textButton}>
+          <Text style={styles.buttonText}>Continue</Text>
         </TouchableOpacity>
-        <View style={{ display: 'flex', flexDirection: 'row', gap: 3 }}>
-          <Text>Already have an account?</Text>
-          <Link href="./sign-in">
-            <Text>Sign in</Text>
-          </Link>
-        </View>
-      </>
+      </View>
+
+      {/* Sign in shortcut */}
+      <View>
+        <Link href="./sign-in">
+          <Text style={styles.termsText}>Have an account? Sign in</Text>
+        </Link>
+      </View>
     </View>
   )
 }

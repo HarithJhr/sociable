@@ -56,6 +56,7 @@ export default function login() {
 
 			{/* Login */}
 			<View style={styles.loginSection}>
+				{/* Google login */}
 				<TouchableOpacity 
 					style={styles.googleButton}
 					onPress={handleGoogleSignIn}
@@ -65,6 +66,18 @@ export default function login() {
 						<Ionicons name="logo-google" size={20} color={COLORS.surface} />
 					</View>
 					<Text style={styles.googleButtonText}>Continue with Google</Text>
+				</TouchableOpacity>
+
+				{/* Email login */}
+				<TouchableOpacity 
+					style={styles.googleButton}
+					onPress={() => router.push("/(auth)/create-or-sign-in")}
+					activeOpacity={0.9}
+				>
+					<View style={styles.googleIconContainer}>
+						<Ionicons name="mail" size={20} color={COLORS.surface} />
+					</View>
+					<Text style={styles.googleButtonText}>Continue with Email</Text>
 				</TouchableOpacity>
 
 				<Text style={styles.termsText}>

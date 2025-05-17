@@ -1,7 +1,10 @@
-import { useSignIn } from '@clerk/clerk-expo'
-import { Link, useRouter } from 'expo-router'
-import React from 'react'
-import { Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { COLORS } from "@/constants/theme";
+import { styles } from "@/styles/auth.styles";
+import { useSignIn } from '@clerk/clerk-expo';
+import { Ionicons } from "@expo/vector-icons";
+import { Link, useRouter } from 'expo-router';
+import React from 'react';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function Page() {
   const { signIn, setActive, isLoaded } = useSignIn()
@@ -39,26 +42,43 @@ export default function Page() {
   }
 
   return (
-    <View>
-      <Text>Sign in</Text>
-      <TextInput
-        autoCapitalize="none"
-        value={emailAddress}
-        placeholder="Enter email"
-        onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
-      />
-      <TextInput
-        value={password}
-        placeholder="Enter password"
-        secureTextEntry={true}
-        onChangeText={(password) => setPassword(password)}
-      />
-      <TouchableOpacity onPress={onSignInPress}>
-        <Text>Continue</Text>
-      </TouchableOpacity>
-      <View style={{ display: 'flex', flexDirection: 'row', gap: 3 }}>
+    <View style={styles.container}>
+      {/* Brand secttion */}
+        <View style={styles.brandSection}>
+          <View style={styles.logoContainer}>
+              <Ionicons name="leaf" size={32} color={COLORS.primary} />
+          </View>
+          <Text style={styles.appName}>Sign In</Text>
+        </View>
+      
+      {/* Log in text fields */}
+      <View style={styles.emailLoginSection}>
+        <TextInput
+          autoCapitalize="none"
+          value={emailAddress}
+          placeholder="Enter email"
+          placeholderTextColor={COLORS.grey}
+          onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
+          style={styles.textBox}
+          keyboardType="email-address"
+        />
+        <TextInput
+          value={password}
+          placeholder="Enter password"
+          placeholderTextColor={COLORS.grey}
+          secureTextEntry={true}
+          onChangeText={(password) => setPassword(password)}
+          style={styles.textBox}
+        />
+        <TouchableOpacity onPress={onSignInPress} style={styles.textButton}>
+          <Ionicons name="arrow-forward" size={20} color={COLORS.white} />
+        </TouchableOpacity>
+      </View>
+      
+      {/* Sign up shortcut*/}
+      <View>
         <Link href="./sign-up">
-          <Text>Sign up</Text>
+          <Text style={styles.termsText}>Don't have an account? Sign up</Text>
         </Link>
       </View>
     </View>
