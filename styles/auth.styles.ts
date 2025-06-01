@@ -102,6 +102,12 @@ export const styles = StyleSheet.create({
     color: COLORS.grey,
     maxWidth: 280,
   },
+  signInErrorText: {
+    textAlign: "left",
+    fontSize: 12,
+    color: COLORS.error,
+    maxWidth: 280,
+  },
   textButton: {
     flexDirection: "row",
     alignItems: "center",
